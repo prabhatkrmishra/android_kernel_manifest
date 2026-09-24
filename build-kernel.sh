@@ -45,6 +45,7 @@ set -e
 INVOKED_DIR=$PWD
 SCRIPT_PATH=$(readlink -f "${BASH_SOURCE[0]:-$0}")
 SCRIPT_DIR=$(dirname "$SCRIPT_PATH")
+SELF="$SCRIPT_PATH"
 cd "$SCRIPT_DIR"
 STANDALONE_TOP=$(pwd)
 
@@ -227,10 +228,10 @@ case "$cmd" in
     # re-pass fragments/config: the child process starts fresh, so CLI
     # overrides must be forwarded explicitly (unquoted: word-split).
     if [ -n "$FULL_CONFIG" ]; then
-      "$0" config --config "$FULL_CONFIG"
+      "$SELF" config --config "$FULL_CONFIG"
     else
       # shellcheck disable=SC2086
-      "$0" config $FRAGMENTS
+      "$SELF" config $FRAGMENTS
     fi
     echo "[build] $BOARD_KERNEL_IMAGE_NAME"
     # shellcheck disable=SC2086
