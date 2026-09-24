@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <manifest>
   <remote  name="aosp" fetch="https://android.googlesource.com/" />
-  <remote  name="github"
-    fetch="https://github.com/" />
+  <remote  name="github" fetch="https://github.com/prabhatkrmishra/" />
 
   <default revision="master-kernel-build-2021" remote="aosp" sync-j="16" />
   <superproject name="kernel/superproject" remote="aosp" revision="common-android11-5.4-lts" />
+
+  <!-- Device kernel; KernelSU-Next root is its submodule (init with git submodule update) -->
+  <project path="kernel/msm-5.4" name="kernel_motorola_fogos" remote="github" revision="15.0-302" />
+
   <project path="build" name="kernel/build" />
   <project path="kernel/tests" name="kernel/tests" />
   <project path="kernel/configs" name="kernel/configs" />
   <project path="prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9" name="platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9" clone-depth="1" />
   <project path="prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9" name="platform/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9" clone-depth="1" />
   <project path="prebuilts/gcc/linux-x86/x86/x86_64-linux-android-4.9" name="platform/prebuilts/gcc/linux-x86/x86/x86_64-linux-android-4.9" clone-depth="1" />
-  <!-- <project path="prebuilts-master/clang/host/linux-x86" name="platform/prebuilts/clang/host/linux-x86" clone-depth="1" /> -->
+  <!-- Clang is NOT synced here (full prebuilts clone is ~20 GB, and repo v2
+       dropped sparse "#branch/path" projects). See README: one-time sparse
+       fetch of clang-r547379 (Clang 20) into prebuilts-master/. -->
   <project path="prebuilts/build-tools" name="platform/prebuilts/build-tools" clone-depth="1" />
   <project path="prebuilts/kernel-build-tools" name="kernel/prebuilts/build-tools" clone-depth="1" />
   <project path="tools/mkbootimg" name="platform/system/tools/mkbootimg" />
