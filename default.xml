@@ -14,6 +14,9 @@
   <!-- kernel source -->
   <project path="kernel/asus/sdm660" name="prabhatkrmishra/kernel_asus_sdm660_4.19-server" revision="lineage-24.0" />
 
+  <!-- KernelSU-Next sources (drivers/kernelsu symlinks into this dir) -->
+  <project path="kernel/asus/sdm660/KernelSU-Next" name="prabhatkrmishra/KernelSU-Next" revision="legacy" />
+
   <!-- build scripts (this repo, so the tree contains its own build commands) -->
   <project path="tools/kernel-build" name="prabhatkrmishra/android_kernel_manifest" revision="msm-4.19-sdm660">
     <linkfile src="build-kernel.sh" dest="build" />
