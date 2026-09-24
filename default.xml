@@ -1,21 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- msm-4.19 kernel manifest.
+     Syncs the kernel source plus the prebuilt toolchains used to build it.
+     Usage:
+       repo init with this manifest branch
+       repo sync with force-sync no-clone-bundle current-branch no-tags
+-->
 <manifest>
-  <remote  name="aosp" fetch="https://android.googlesource.com/" />
-  <remote  name="github"
-    fetch="https://github.com/" />
+  <remote name="aosp" fetch="https://android.googlesource.com/" revision="refs/tags/android-17.0.0_r1" />
+  <remote name="github" fetch="https://github.com/" />
 
-  <default revision="master-kernel-build-2021" remote="aosp" sync-j="16" />
-  <superproject name="kernel/superproject" remote="aosp" revision="common-android11-5.4-lts" />
-  <project path="build" name="kernel/build" />
-  <project path="kernel/tests" name="kernel/tests" />
-  <project path="kernel/configs" name="kernel/configs" />
-  <project path="prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9" name="platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9" clone-depth="1" />
-  <project path="prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9" name="platform/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9" clone-depth="1" />
-  <project path="prebuilts/gcc/linux-x86/x86/x86_64-linux-android-4.9" name="platform/prebuilts/gcc/linux-x86/x86/x86_64-linux-android-4.9" clone-depth="1" />
-  <!-- <project path="prebuilts-master/clang/host/linux-x86" name="platform/prebuilts/clang/host/linux-x86" clone-depth="1" /> -->
-  <project path="prebuilts/build-tools" name="platform/prebuilts/build-tools" clone-depth="1" />
-  <project path="prebuilts/kernel-build-tools" name="kernel/prebuilts/build-tools" clone-depth="1" />
-  <project path="tools/mkbootimg" name="platform/system/tools/mkbootimg" />
-  <project path="tools/libufdt" name="platform/system/libufdt" revision="master" remote="aosp" />
+  <default revision="lineage-24.0" remote="github" sync-j="4" />
 
+  <!-- kernel source -->
+  <project path="kernel/asus/sdm660" name="prabhatkrmishra/kernel_asus_sdm660_4.19-server" revision="lineage-24.0" />
+
+  <!-- build scripts (this repo, so the tree contains its own build commands) -->
+  <project path="tools/kernel-build" name="prabhatkrmishra/android_kernel_manifest" revision="msm-4.19-sdm660">
+    <linkfile src="build-kernel.sh" dest="build" />
+    <linkfile src="Makefile" dest="Makefile" />
+  </project>
+
+  <!-- prebuilt toolchains and build tools -->
+  <project path="prebuilts/clang/host/linux-x86" name="platform/prebuilts/clang/host/linux-x86" remote="aosp" clone-depth="1" />
+  <project path="prebuilts/gcc/linux-x86/host/x86_64-linux-glibc2.17-4.8" name="platform/prebuilts/gcc/linux-x86/host/x86_64-linux-glibc2.17-4.8" remote="aosp" clone-depth="1" />
+  <project path="prebuilts/build-tools" name="platform/prebuilts/build-tools" remote="aosp" clone-depth="1" />
+  <project path="prebuilts/clang-tools" name="platform/prebuilts/clang-tools" remote="aosp" clone-depth="1" />
+  <project path="prebuilts/kernel-build-tools" name="kernel/prebuilts/build-tools" remote="aosp" revision="main-kernel-2025" clone-depth="1" />
+  <project path="prebuilts/tools-lineage" name="LineageOS/android_prebuilts_tools-lineage" clone-depth="1" />
 </manifest>

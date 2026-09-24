@@ -1,0 +1,9 @@
+# X00TD fragment list. First entry is the base defconfig,
+# every following entry is merged on top of it in order.
+# Build with:
+#   ./build-kernel.sh kernel @X00TD/FRAGMENTS
+vendor/sdm660-perf_defconfig
+vendor/common.config
+vendor/debugfs.config
+vendor/X00TD.config
+vendor/chroot.config
